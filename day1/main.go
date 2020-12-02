@@ -26,13 +26,19 @@ func main() {
 		numbers = append(numbers, int(num))
 	}
 
-	loop:
 	for i := 0; i < len(numbers); i++ {
 		for j := i + 1; j < len(numbers); j++ {
-			if numbers[i] + numbers[j] == 2020 {
-				fmt.Printf("%d + %d == 2020\n", numbers[i], numbers[j])
-				fmt.Printf("%d * %d == %d\n", numbers[i], numbers[j], numbers[i] * numbers[j])
-				break loop
+			a, b := numbers[i], numbers[j]
+			if a + b == 2020 {
+				fmt.Printf("%d + %d == 2020\n", a, b)
+				fmt.Printf("%d * %d == %d\n",a, b, a * b)
+			}
+			for k := j + 1; k < len(numbers); k++ {
+				c := numbers[k]
+				if a + b + c == 2020 {
+					fmt.Printf("%d + %d + %d == 2020\n", a, b, c)
+					fmt.Printf("%d * %d * %d == %d\n",a, b, c, a * b * c)
+				}
 			}
 		}
 	}
