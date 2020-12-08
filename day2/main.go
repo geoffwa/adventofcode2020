@@ -7,7 +7,6 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 func main() {
@@ -26,18 +25,24 @@ func main() {
 		if match == nil {
 			continue
 		}
-		min, err := strconv.ParseInt(match[1], 10, 32)
+		firstIdx, err := strconv.ParseInt(match[1], 10, 32)
 		if err != nil {
 			log.Fatal(err)
 		}
-		max, err := strconv.ParseInt(match[2], 10, 32)
+		secondIdx, err := strconv.ParseInt(match[2], 10, 32)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		letter, password := match[3], match[4]
-		matchCount := strings.Count(password, letter)
-		if matchCount >= int(min) && matchCount <= int(max) {
+		count := 0
+		if password[firstIdx-1] == letter[0] {
+			count++
+		}
+		if password[secondIdx-1] == letter[0] {
+			count++
+		}
+		if count == 1 {
 			validCount++
 		}
 	}
@@ -47,5 +52,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-
